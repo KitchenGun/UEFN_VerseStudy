@@ -16,6 +16,8 @@ hello_world_device := class(creative_device):
         fish : string ="🐟"
         Print("cat find fish")
         
+        #var temp: = "string"   자료형을 지정하지 않으면 선언이 안됨
+
         set cat = <# 고양이가 생선을 찾음#>cat+fish
         Print(cat)#dfdfd
         var IsCatGetAFish : logic = false
