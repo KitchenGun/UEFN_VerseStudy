@@ -51,21 +51,33 @@ hello_world_device := class(creative_device):
         else:
             Print("작은거 있음")
 
-
-        # 함수 호출
-        # Coins를 500으로 초기화합니다. 변수로 선언하므로 나중에 값을 변경할 수 있습니다.
-        var Coins : int = 500
-    
-        # CoinsPerMousetrap을 1~100 사이의 랜덤 integer로 초기화합니다.
-        CoinsPerMousetrap : int = GetRandomInt(1, 100)
-        
         # 로그에 Coins의 현재 값(500)을 출력합니다.
-        Print("Coins starts at {Coins}.")
+        Print("Coins : {Coins}.")
+        for(X := 0..2):
+            BuyMousetrap()
+        
+
+    # 함수 호출
+    # Coins를 500으로 초기화합니다. 변수로 선언하므로 나중에 값을 변경할 수 있습니다.
+    var Coins : int = 500
     
+    
+
+
+    BuyMousetrap() : void =
+        # CoinsPerMousetrap을 1~100 사이의 랜덤 integer로 초기화합니다.
+        CoinsPerMousetrap : int = GetNumberOfMousetrapsYouCanAfford()
+            
         # Coins를 CoinsPerMousetrap만큼 감소하고, 로그에 새 값을 출력합니다.
         set Coins = Coins - CoinsPerMousetrap
-        Print("After buying one mousetrap, Coins is {Coins}.")
+        Print("After buying one mousetrap, Coins is {Coins}.") 
+        
+    GetNumberOfMousetrapsYouCanAfford() : int =
+        var afford : int = GetRandomInt(1, 100)
+        Print("{afford}")
+        return afford
     
+        
 
    
 

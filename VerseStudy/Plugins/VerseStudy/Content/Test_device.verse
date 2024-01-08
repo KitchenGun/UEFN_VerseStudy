@@ -12,7 +12,7 @@ Test_device := class(creative_device):
     OnBegin<override>()<suspends>:void=
 
         var PlayerHealth : float = 100.0
-        var PotionDamageAmount:float = 20.0
+        var PotionDamageAmount:float = 80.0
         var PotionHealAmount:float = 10.0
         MaxHealth : float = 100.0
         MinHealth : float = 1.0
@@ -48,3 +48,20 @@ Test_device := class(creative_device):
                 Print("Player eliminated!")
 
         Print("PlayerHealth now {PlayerHealth}")
+
+
+
+    CalculateDamage() : float = 
+        MinHealth : float = 1.0
+         PotionDamageAmount: float = 80.0
+         var PlayerHealth : float = 100.0
+         
+        # 대미지 양에 의해 플레이어가 죽지 않는 경우 해당 대미지를 플레이어에게 적용
+        if (PlayerHealth > PotionDamageAmount):
+            return PotionDamageAmount
+        else if (PlayerHealth > MinHealth):
+            # 플레이어의 체력이 낮은 경우 플레이어에게 한 번 더 기회를 줌
+            return PlayerHealth - MinHealth
+        else:
+            # 플레이어 사망
+            return PlayerHealth
