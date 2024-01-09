@@ -55,7 +55,25 @@ hello_world_device := class(creative_device):
         Print("Coins : {Coins}.")
         for(X := 0..2):
             BuyMousetrap()
+    
+            
+
+        var Drinks:int = 4
+        var Snacks:int = 4
+        var Tickets:int = 3
+        var FriendsAvailable:int = 4
+
+        if:
+            Drinks >= FriendsAvailable
+            set Drinks -= FriendsAvailable
+            Snacks >= FriendsAvailable
+            set Snacks -= FriendsAvailable
+            Tickets >= FriendsAvailable
+            set Tickets -= FriendsAvailable
         
+        Print("Drinks Left: { Drinks }")
+        Print("Snacks Left: { Snacks }")
+        Print("Tickets Left: { Tickets }")   
 
     # 함수 호출
     # Coins를 500으로 초기화합니다. 변수로 선언하므로 나중에 값을 변경할 수 있습니다.
@@ -76,6 +94,11 @@ hello_world_device := class(creative_device):
         var afford : int = GetRandomInt(1, 100)
         Print("{afford}")
         return afford
+
+
+
+
+    
     
         
 

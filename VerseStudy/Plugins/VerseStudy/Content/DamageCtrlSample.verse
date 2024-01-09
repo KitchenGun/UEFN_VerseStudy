@@ -1,21 +1,53 @@
 # fill this file with your verse-script
 using { /Fortnite.com/Devices }
+using { /Verse.org/Simulation }
+using { /UnrealEngine.com/Temporary/Diagnostics }
 using { /Fortnite.com/Characters }
 using { /Fortnite.com/Playspaces }
-using { /Verse.org/Simulation }
-using { /Verse.org/Random }
-using { /Verse.org/Verse }
+using { /UnrealEngine.com/Temporary/SpatialMath }
 
 DamageCtrlSample := class(creative_device):
 
     # 게임 실행 중 장치가 시작되면 실행됩니다
     OnBegin<override>()<suspends>:void=
-        Sleep(5.0)
-        HurtPlayer(GetRandomFloat(1.0,99.0));
-        Sleep(5.0)
-        HurtPlayer(GetRandomFloat(1.0,99.0));
-        Sleep(3.0)
-        HealPlayer(GetRandomFloat(1.0,99.0))
+
+        Playspace:fort_playspace = GetPlayspace()
+        AllPlayers:[]player = Playspace.GetPlayers()
+        
+        var FirstPosition:transform = transform{}
+        var SecondPosition:transform = transform{}
+        loop:
+            if:
+                Player:player = AllPlayers[0]
+                FortniteCharacter:fort_character = Player.GetFortCharacter[]
+                set FirstPosition = FortniteCharacter.GetTransform()
+            then:
+                Print("Move or prepare to take damage!")
+                Sleep(10.0)
+            
+            if:
+                Player : player = AllPlayers[0]
+                FortniteCharacter : fort_character = Player.GetFortCharacter[]
+                set SecondPosition = FortniteCharacter.GetTransform()
+                DistanceBetweenPositions: float = DistanceXY(FirstPosition.Translation, SecondPosition.Translation)
+                DistanceBetweenPositions < 10000.0
+            then:
+                Print("Distance Moved: {DistanceBetweenPositions}")
+                Print("Applying Damage")
+                HurtPlayer(50.0)
+               
+       #Sleep(5.0)
+        #var curVal: float = GetRandomFloat(1.0,99.0)
+        #Print("{curVal}")
+        #HurtPlayer(curVal);
+        #Sleep(5.0)
+        #set curVal = GetRandomFloat(1.0,99.0)
+        #Print("{curVal}")
+        #HurtPlayer(curVal);
+        #Sleep(3.0)
+        #set curVal = GetRandomFloat(1.0,99.0)
+        #Print("{curVal}")
+        #HealPlayer(GetRandomFloat(1.0,99.0))
 
     HurtPlayer(DamageAmount : float) : void =
         #get world와 유사한 플레이 공간 접근
@@ -29,7 +61,6 @@ DamageCtrlSample := class(creative_device):
                 DamageToDo : float = CalculateDamage(health,DamageAmount)
                 Print("current DamageToDo : {DamageToDo}")
                 FortniteCharacter.Damage(DamageToDo)
-
     HealPlayer(Healamount : float) : void =
         #get world와 유사한 플레이 공간 접근
         Playspace: fort_playspace = GetPlayspace()
