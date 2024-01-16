@@ -4,23 +4,29 @@ using { /Fortnite.com/UI }
 using { /Verse.org/Colors }
 using { /Verse.org/Simulation }
 
+#생성자가 클래스 밖에 있어야한다...
+MakeCountdownManager<constructor><public>(MaxTime : float, InPlayer : agent) := count_down_manager:
+    RemainingTime := MaxTime
+    MaybePlayerUI := option{GetPlayerUI[player[InPlayer]]} 
 
 count_down_manager := class:
     #카운트다운 종료 이벤트
-    CountdownEndedEvent : event() = event(){}
+    CountdownEndedEvent<public> : event() = event(){}
     # 플레이어 UI 옵션 MaybePlayerUI 를 추가하고 false 로 초기화합니다.
-    MaybePlayerUI : ? player_ui = false
+    MaybePlayerUI<internal> : ? player_ui = false
     # 플로트 변수 RemainingTime 을 추가하고 0.0 으로 초기화합니다.
-    var RemainingTime : float = 0.0
-    var Canvas : canvas = canvas{}
+    var RemainingTime<internal> : float = 0.0
+    var Canvas<private> : canvas = canvas{}
     # 텍스트 위젯 RemainingTimeWidget 을 추가하고 디폴트 텍스트 색상을 흰색으로 설정합니다.
-    RemainingTimeWidget : text_block = text_block{DefaultTextColor := NamedColors.White}
+    RemainingTimeWidget<private> : text_block = text_block{DefaultTextColor := NamedColors.White}
     # 남은 시간 출력
-    RemainingTimeText<localizes>(CurrentRemainingTime : int) : message = "{CurrentRemainingTime}"
+    RemainingTimeText<localizes><private>(CurrentRemainingTime : int) : message = "{CurrentRemainingTime}"
     # 시간 추가 위젯
-    AddedTimeWidget : text_block = text_block{DefaultTextColor := NamedColors.White} 
+    AddedTimeWidget<private> : text_block = text_block{DefaultTextColor := NamedColors.White} 
     # 추가 시간 출력
-    AddedTimeText<localizes>(AddedTime : int) : message = " +{AddedTime}!"
+    AddedTimeText<localizes><private>(AddedTime : int) : message = " +{AddedTime}!"
+
+
     # block 표현식을 추가해 화면 상단 중앙에 시간을 표시하는 UI를 생성합니다. 클래스 정의의 block 표현식은 해당 클래스가 인스턴스화될 때만 실행되므로 이 block 표현식에 들어가면 UI를 생성할 수 있습니다.
     block:
         set Canvas = canvas:

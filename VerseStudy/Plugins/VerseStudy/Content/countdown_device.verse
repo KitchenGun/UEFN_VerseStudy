@@ -11,11 +11,11 @@ countdown_device:= class(creative_device):
     EndGame : end_game_device = end_game_device{}
 
     #카운트 다운 매니져
-    var CountDownTimer: count_down_manager = count_down_manager{}
+    var CountDownTimer<private>: count_down_manager = count_down_manager{}
     #초기 타이머 값
-    InitalCountDownTime :float = 30.0
+    InitalCountDownTime<private>:float = 30.0
     # 버튼 활성화 비활성화 체크
-    var IsActive : logic = true
+    var IsActive<private> : logic = true
 
     OnBegin<override>()<suspends> : void =
         AddMoreTimeButton.InteractedWithEvent.Subscribe(OnButtonInteractedWith)
@@ -24,7 +24,8 @@ countdown_device:= class(creative_device):
             FirstPlayer := Self.GetPlayspace().GetPlayers()[0]
             PlayerUI:=GetPlayerUI[player[FirstPlayer]]
         then:
-            set CountDownTimer = count_down_manager{MaybePlayerUI := option{PlayerUI}, RemainingTime := InitalCountDownTime}
+            set CountDownTimer = MakeCountdownManager(InitalCountDownTime,FirstPlayer)
+                #count_down_manager{MaybePlayerUI := option{PlayerUI}, RemainingTime := InitalCountDownTime}
 
             CountDownTimer.StartCountDown()
             #이벤트 호출 전까지 대기
