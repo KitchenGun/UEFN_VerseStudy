@@ -22,10 +22,10 @@
 	{
 		"matchmaking":
 		{
-			"maxPlayers": 8,
-			"maxTeamCount": 8,
-			"maxTeamSize": 8,
-			"maxSocialPartySize": 8,
+			"maxPlayers": 16,
+			"maxTeamCount": 2,
+			"maxTeamSize": 16,
+			"maxSocialPartySize": 16,
 			"allowJoinInProgress": true,
 			"allowSquadFillOption": false,
 			"version": 1
