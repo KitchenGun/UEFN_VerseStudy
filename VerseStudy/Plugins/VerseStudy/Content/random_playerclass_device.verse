@@ -13,16 +13,29 @@ random_playerclass_device := class(creative_device):
     #클래스
     @editable
     PlayerLoadouts : []class_and_team_selector_device = array{}
-    
+    #스코어
+    var ScoreManager<private> : score_manager = score_manager{}
+    @editable
+    ScoreManagerDevice<public> : score_manager_device = score_manager_device{}
+    @editable
+    var LapCount<public> : int =0
+    @editable
+    var KillScore<public> : int =0
+    @editable
+    var DeadScore<public> : int =0
 
 
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
         for(PlayerSpawner:PlayerSpawners):
             PlayerSpawner.SpawnedEvent.Subscribe(OnSpawnPlayer)
+        GetPlayspace().PlayerAddedEvent().Subscribe(OnJoinPlayer)
         Print("begin")
 
-
+    OnJoinPlayer(Agent:agent) :void=
+        set ScoreManager = MakeScoreManager(Agent,ScoreManagerDevice)
+        ScoreManager.AddScoreManagerToUI()
+        Print("join")
 
     OnSpawnPlayer(Agent : agent) :void=
         var RandomLoadoutNum : int = GetRandomInt(1,3)
@@ -42,7 +55,9 @@ random_playerclass_device := class(creative_device):
                     Print("slot3")
             _ =>
                 return
-
+        
+        set ScoreManager = MakeScoreManager(Agent,ScoreManagerDevice)
+        ScoreManager.AddScoreManagerToUI()
         Print("spawn")
 
 
