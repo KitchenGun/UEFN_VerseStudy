@@ -47,7 +47,7 @@ waiting_for_more_players := class(creative_device):
     Logger:log = log{Channel:=log_waiting_for_more_players_device}
 
     @editable # 라운드를 시작하기 위해 매치에 필요한 최소 플레이어 수입니다.
-    MinimumNumberOfPlayers:int = 2
+    MinimumNumberOfPlayers:int = 1
 
     @editable # 화면상 타이머 UI의 수평 및 수직 위치입니다. X 0~1은 왼쪽~오른쪽, Y 0~1은 상단~하단입니다.
     UIPosition:vector2 = vector2{X:= 0.5, Y:=0.4}
