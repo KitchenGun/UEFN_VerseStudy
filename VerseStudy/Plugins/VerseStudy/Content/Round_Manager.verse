@@ -122,8 +122,10 @@ round_timer := class(creative_device):
     # 시간 값을 분 단위로 수락하여 초 단위로 반환합니다.
     GetRoundTimeInSeconds():int =
         var InSeconds:int = 0
-        if (set InSeconds = Round[RoundTimeInMinutes * 60.0]) {}
-        InSeconds
+        if :
+            NewRoundTimeInMinutes : float = RoundTimeInMinutes * 60.0
+            set InSeconds = Round[NewRoundTimeInMinutes]
+        return InSeconds
 
     # 타이머가 완료되면 남은 시간을 업데이트하고 시간이 만료되었는지 확인합니다.
     UpdateTimeUI():void =

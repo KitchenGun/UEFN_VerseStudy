@@ -58,6 +58,7 @@ random_playerclass_device := class(creative_device):
         
         set ScoreManager = MakeScoreManager(Agent,ScoreManagerDevice)
         ScoreManager.AddScoreManagerToUI()
+
         Print("spawn")
 
 
