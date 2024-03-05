@@ -38,8 +38,10 @@ team_multiplayer_balancing := class(creative_device):
         for(TeamPlayer:AllPlayers,CurrentTeam:=GetPlayspace().GetTeamCollection().GetTeam[TeamPlayer]):
             #팀밸런스가 맞지 않으면 플레이어들을 새로운 팀에 배정합니다
             var TeamSize : int = 0
-            if(set TeamSize = GetPlayspace().GetTeamCollection().GetAgents[CurrentTeam].Length):
-                #팀크기가 없으면 메세지 출력
+            if:
+                temp := GetPlayspace().GetTeamCollection().GetAgents[CurrentTeam].Length
+                set TeamSize = temp
+            #팀크기가 없으면 메세지 출력
             SmallestTeam : ?team = FindSmallestTeam(TeamSize)
             #플레이어가 가장 적은 팀이면 패스 아니면 새팀에 배정해야함
             #옵션을 실행인자로 직접 전달하는 것을 허용하지 않는 메서드때 아래와 같이 사용해야함

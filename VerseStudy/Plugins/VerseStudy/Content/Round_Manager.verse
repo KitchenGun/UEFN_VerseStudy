@@ -124,7 +124,8 @@ round_timer := class(creative_device):
         var InSeconds:int = 0
         if :
             NewRoundTimeInMinutes : float = RoundTimeInMinutes * 60.0
-            set InSeconds = Round[NewRoundTimeInMinutes]
+            Time:= Round[NewRoundTimeInMinutes]
+            set InSeconds = Time
         return InSeconds
 
     # 타이머가 완료되면 남은 시간을 업데이트하고 시간이 만료되었는지 확인합니다.
@@ -132,11 +133,16 @@ round_timer := class(creative_device):
 
         # Minutes를 나머지 없이 TimeRemainingInSeconds/60으로 설정합니다.
         var Minutes:int = 0
-        if (set Minutes = Floor(TimeRemainingInSeconds / 60)) {}
+        if:
+            temp := TimeRemainingInSeconds / 60
+            Time:= Floor(temp)
+            set Minutes = Time
 
         # Seconds를 TimeRemainingInSeconds/60의 나머지로 설정합니다.
         var Seconds:int = 0
-        if (set Seconds = Mod[TimeRemainingInSeconds, 60]) {}
+        if :
+            temp:=Mod[TimeRemainingInSeconds, 60]
+            set Seconds = temp
 
         # Minutes 및 Seconds를 스트링으로 변환합니다.
         MinutesAsString := string("{Minutes}")
@@ -148,7 +154,9 @@ round_timer := class(creative_device):
         Players:[]player = GetPlayspace().GetPlayers()
         for (Player : Players):
             var TextBlock:text_block = text_block{}
-            if (set TextBlock = TimeRemainingTextBlocks[Player]) {}
+            if :
+                temp := TimeRemainingTextBlocks[Player]
+                set TextBlock = temp
             else:
                 set TextBlock = SetUpTimeRemainingUI(Player)
             TextBlock.SetText(TimeRemainingMessage(MinutesAsString, SecondsAsString))
